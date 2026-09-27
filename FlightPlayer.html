@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlightPlayer Lite 2</title>
+<link rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet"
+      href="css/style.css">
+</head>
+<body>
+<header id="toolbar">
+    <div id="mapExportCapture"
+        style="
+            position: fixed;
+            left: -10000px;
+            top: -10000px;
+            width: 1280px;
+            height: 720px;
+        ">
+    </div>
+    <div class="toolbar-main">
+        <div class="toolbar-group toolbar-file">
+            <button id="btnOpen" class="btn btn-primary">
+                <span class="btn-icon">↥</span>
+                <span>Open Flight</span>
+            </button>
+            <input
+                type="file"
+                id="fileInput"
+                accept=".csv,.kml"
+                hidden>
+        </div>
+
+        <div class="toolbar-divider"></div>
+
+        <div class="toolbar-group toolbar-playback">
+            <button id="btnPlay" class="btn btn-play">▶ Play</button>
+            <button id="loopButton" class="btn" type="button"> ↻ Loop </button>
+            <button id="btnPause" class="btn btn-secondary">❚❚ Pause</button>
+            <button id="btnRestart" class="btn btn-secondary">↻ Restart</button>
+            <button id="exportButton" class="btn btn-video-export" type="button">
+                    <span class="btn-icon">⏺</span>
+                    <span>Export Video</span>
+            </button>
+            <span id="exportStatus" class="export-status"> </span>
+        </div>
+
+        <div class="toolbar-spacer"></div>
+
+        <div class="toolbar-group toolbar-view">
+            <label class="speed-control">
+                <span class="control-label">Speed</span>
+                <select id="speed">
+                    <option value="0.5">0.5×</option>
+                    <option value="1">1×</option>
+                    <option value="10" selected>10×</option>
+                    <option value="50">50×</option>
+
+                    <option value="100">100×</option>
+                </select>
+            </label>
+            <button id="exportFocusedBtn" class="btn btn-export">
+                <span class="btn-icon">⇩</span>
+                <span>Export Focused KML</span>
+            </button>
+            <div id="focusStatus" class="focus-status">
+                <span class="focus-status-label">Focus</span>
+                <span id="focusStatusText">Full Flight</span>
+            </div>
+            <button id="resetFocusBtn" class="btn btn-secondary" disabled>
+                Reset Focus
+            </button>
+            <button id="darkModeButton" class="btn-icon-only" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
+        </div>
+    </div>
+
+    <div class="timeline-row">
+        <input
+            id="timeline"
+            type="range"
+            min="0"
+            max="0"
+            value="0">
+    </div>
+</header>
+<div id="mainContainer">
+    <div id="map"></div>
+        <section id="bottomPanel">
+    <div id="infoPanel">
+        <div class="infoRow infoSummaryRow">
+            <div class="infoItem flightName">
+                <span class="infoLabel">Flight</span>
+                <span id="flightName">-</span>
+            </div>
+            <div class="infoItem statusItem">
+                <span class="infoLabel">Status</span>
+                <span id="status">Waiting...</span>
+            </div>
+            <div class="infoItem">
+                <span class="infoLabel">Takeoff</span>
+                <span id="takeoffDisplay">-</span>
+            </div>
+            <div class="infoItem">
+                <span class="infoLabel">Landing</span>
+                <span id="landingDisplay">-</span>
+            </div>
+            <div class="infoItem">
+                <span class="infoLabel">Duration</span>
+                <span id="durationDisplay">-</span>
+            </div>
+            <div class="infoItem">
+                <span class="infoLabel">Distance</span>
+                <span id="distanceDisplay">-</span>
+            </div>
+            <div class="infoItem">
+                <span class="infoLabel">Average</span>
+                <span id="averageSpeedDisplay">-</span>
+            </div>
+            <div class="infoSpacer"></div>
+            <div class="infoItem pointItem">
+                <span class="infoLabel">Point</span>
+                <span id="pointNumber">-</span>
+            </div>
+        </div>
+
+        <div class="infoRow infoTelemetryRow">
+            <div class="infoItem liveItem">
+                <span class="infoLabel">Time</span>
+                <span id="flightTime">-</span>
+            </div>
+            <div class="infoItem liveItem">
+                <span class="infoLabel">Altitude</span>
+                <span id="altitude">-</span>
+            </div>
+            <div class="infoItem liveItem">
+                <span class="infoLabel">Lat</span>
+                <span id="latitude">-</span>
+            </div>
+            <div class="infoItem liveItem">
+                <span class="infoLabel">Lon</span>
+                <span id="longitude">-</span>
+            </div>
+            <div class="infoItem liveItem">
+                <span class="infoLabel">Heading</span>
+                <span id="heading">-</span>
+            </div>
+            <div class="infoItem liveItem">
+                <span class="infoLabel">Speed</span>
+                <span id="speedDisplay">-</span>
+            </div>
+        </div>
+    </div>
+        <div id="flightChart">
+            <svg id="flightChartSvg"></svg>
+            <div id="graphTooltip"></div>
+        </div>
+    </section>
+</div>
+<footer>
+FlightPlayer Lite 2
+</footer>
+<script
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<!-- Leaflet map capture -->
+<script src=
+"https://unpkg.com/leaflet-image@0.4.0/leaflet-image.js">
+</script>
+
+<!-- FlightPlayer -->
+<script src="js/utils.js"></script>
+<script src="js/parser.js"></script>
+<script src="js/map.js"></script>
+<script src="js/sampler.js"></script>
+<script src="js/constants.js"></script>
+<script src="js/animation.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/kmlWriter.js"></script>
+<script src="js/mapexportrenderer.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,753 @@
+/* ==========================================================
+   FlightPlayer Lite 2
+   style.css - Modern UI Redesign
+   ========================================================== */
+
+/* ==========================================================
+   Global & Reset
+   ========================================================== */
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #f1f5f9;
+    --panel: #ffffff;
+    --panel-soft: #f8fafc;
+    --toolbar: rgba(15, 23, 42, 0.92);
+    --toolbar-border: rgba(255, 255, 255, 0.08);
+    --text: #0f172a;
+    --muted: #64748b;
+    --grid: #e2e8f0;
+    --border: #e2e8f0;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: rgba(37, 99, 235, 0.1);
+    --success: #059669;
+    --success-hover: #047857;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --cursor: #334155;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+    /* Toolbar Variables */
+    --toolbar-btn: rgba(255, 255, 255, 0.07);
+    --toolbar-btn-hover: rgba(255, 255, 255, 0.13);
+    --toolbar-btn-active: rgba(255, 255, 255, 0.2);
+    --toolbar-export: #854d0e;
+    --toolbar-export-hover: #a16207;
+    --toolbar-video: #6b21a8;
+    --toolbar-video-hover: #7e22ce;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-full: 9999px;
+}
+
+body.dark {
+    --background: #0b0f17;
+    --panel: #131b2e;
+    --panel-soft: #19233c;
+    --toolbar: rgba(11, 15, 23, 0.94);
+    --toolbar-border: rgba(255, 255, 255, 0.06);
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --grid: #1e293b;
+    --border: #1e293b;
+    --accent: #38bdf8;
+    --accent-hover: #0284c7;
+    --accent-light: rgba(56, 189, 248, 0.12);
+    --cursor: #facc15;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    height: 100dvh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Inter", sans-serif;
+    background: var(--background);
+    color: var(--text);
+    overflow: hidden;
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+button {
+    border: 0;
+}
+
+/* Scrollbar Polish */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+}
+
+/* ==========================================================
+   Header & Floating Glass Toolbar
+   ========================================================== */
+#toolbar {
+    position: relative;
+    z-index: 1000;
+    background: var(--toolbar);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: #f8fafc;
+    padding: 8px 16px 10px;
+    border-bottom: 1px solid var(--toolbar-border);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+}
+
+.toolbar-main {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Playback Shared Pill Surface */
+.toolbar-playback {
+    padding: 3px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 0 2px;
+}
+
+.toolbar-spacer {
+    flex: 1;
+}
+
+/* ==========================================================
+   Buttons
+   ========================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+    background: var(--toolbar-btn);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+}
+
+.btn:hover:not(:disabled) {
+    background: var(--toolbar-btn-hover);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn.active {
+    background: var(--toolbar-btn-active);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn:disabled,
+.btn-icon-only:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Primary Button (Open Flight) */
+.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+}
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.5);
+}
+
+/* Play Button */
+.btn-play {
+    background: linear-gradient(135deg, #059669, #047857);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.35);
+}
+.btn-play:hover:not(:disabled) {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45);
+}
+
+/* Export KML Button */
+.btn-export {
+    background: linear-gradient(135deg, #b45309, #92400e);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.btn-export:hover:not(:disabled) {
+    background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+/* Export Video Button */
+.btn-video-export {
+    background: linear-gradient(135deg, #7e22ce, #6b21a8);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 8px rgba(126, 34, 206, 0.35);
+}
+.btn-video-export:hover:not(:disabled) {
+    background: linear-gradient(135deg, #9333ea, #7e22ce);
+    box-shadow: 0 4px 14px rgba(126, 34, 206, 0.45);
+}
+
+/* Button Icons */
+.btn-icon {
+    margin-right: 6px;
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* Circular Icon-only Button (Dark Mode Toggle) */
+.btn-icon-only {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+.btn-icon-only:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+#loopButton.active {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.4);
+    color: #7dd3fc;
+}
+
+/* ==========================================================
+   Speed Control Dropdown
+   ========================================================== */
+.speed-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    padding: 0 4px 0 10px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #cbd5e1;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.control-label {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+#speed {
+    height: 28px;
+    min-width: 68px;
+    padding: 2px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    background: rgba(15, 23, 42, 0.8);
+    color: #f8fafc;
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: border-color 0.15s ease;
+}
+
+#speed:focus {
+    border-color: var(--accent);
+}
+
+/* ==========================================================
+   Export Status Indicator
+   ========================================================== */
+.export-status {
+    display: inline-flex;
+    align-items: center;
+    min-width: 90px;
+    padding: 0 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    white-space: nowrap;
+}
+
+.export-status.recording {
+    color: #f87171;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* ==========================================================
+   Focus Status Pill
+   ========================================================== */
+.focus-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.focus-status-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+
+#focusStatusText {
+    color: #f1f5f9;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-weight: 500;
+}
+
+.focus-status.active {
+    border-color: rgba(56, 189, 248, 0.5);
+    background: var(--accent-light);
+}
+
+.focus-status.active #focusStatusText {
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+body:not(.dark) .focus-status {
+    background: var(--panel-soft);
+    border-color: var(--border);
+}
+body:not(.dark) .focus-status-label {
+    color: var(--muted);
+}
+body:not(.dark) #focusStatusText {
+    color: var(--text);
+}
+
+/* ==========================================================
+   Custom Modern Timeline Slider
+   ========================================================== */
+.timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 0 4px;
+}
+
+#timeline {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+#timeline:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Webkit Range Thumb */
+#timeline::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#timeline::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.3);
+}
+
+/* Firefox Range Thumb */
+#timeline::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+#timeline::-moz-range-thumb:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.3);
+}
+
+/* ==========================================================
+   Main Layout & Flex Distribution
+   ========================================================== */
+#mainContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 122px);
+    height: calc(100dvh - 122px);
+    min-height: 0;
+}
+
+/* ==========================================================
+   Map Container
+   ========================================================== */
+#map {
+    flex: 1;
+    min-height: 0;
+    z-index: 1;
+}
+
+#bottomPanel {
+    flex-shrink: 0;
+    width: 100%;
+    background: var(--panel);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+    border-top: 1px solid var(--border);
+    z-index: 10;
+}
+
+/* ==========================================================
+   Telemetry & Info Panel Dashboard Cards
+   ========================================================== */
+#infoPanel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    gap: 6px;
+}
+
+.infoRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+}
+
+.infoSummaryRow {
+    min-height: 28px;
+}
+
+.infoTelemetryRow {
+    min-height: 28px;
+    padding-top: 4px;
+    border-top: 1px dashed var(--border);
+}
+
+.infoItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--panel-soft);
+    border: 1px solid var(--border);
+    font-size: 12px;
+}
+
+.infoLabel {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.infoItem span:last-child {
+    color: var(--text);
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.flightName {
+    background: var(--accent-light);
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+.flightName span:last-child {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.liveItem {
+    background: rgba(56, 189, 248, 0.05);
+    border-color: rgba(56, 189, 248, 0.15);
+}
+
+body:not(.dark) .liveItem {
+    background: rgba(37, 99, 235, 0.04);
+    border-color: rgba(37, 99, 235, 0.15);
+}
+
+.liveItem span:last-child {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.pointItem {
+    margin-left: auto;
+}
+
+.infoSpacer {
+    flex: 1;
+    min-width: 8px;
+}
+
+/* ==========================================================
+   Chart & Profile Container
+   ========================================================== */
+#flightChart {
+    position: relative;
+    height: 165px;
+    background: var(--panel);
+}
+
+#flightChartSvg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Floating Glass Tooltip */
+#graphTooltip {
+    position: absolute;
+    display: none;
+    pointer-events: none;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #f8fafc;
+    font-size: 11px;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    white-space: nowrap;
+    z-index: 50;
+}
+
+/* ==========================================================
+   Graph Cursor / Focus Styling
+   ========================================================== */
+.graph-cursor-marker {
+    fill: var(--cursor);
+    stroke: var(--cursor);
+    stroke-width: 1;
+}
+
+.graph-focus-band {
+    fill: var(--accent);
+    fill-opacity: 0.06;
+    pointer-events: none;
+}
+
+.graph-focus-label {
+    fill: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+footer {
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    background: var(--toolbar);
+    color: #64748b;
+    border-top: 1px solid var(--toolbar-border);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    user-select: none;
+}
+
+/* ==========================================================
+   Leaflet Popup & UI Overrides
+   ========================================================== */
+.leaflet-popup-content-wrapper {
+    background: var(--panel);
+    color: var(--text);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+}
+
+.leaflet-popup-tip {
+    background: var(--panel);
+}
+
+.leaflet-popup-content {
+    font-size: 12px;
+    margin: 10px 14px;
+}
+
+/* ==========================================================
+   Aircraft Icon & Animations
+   ========================================================== */
+.aircraft-icon img {
+    width: 40px;
+    height: 40px;
+    transform-origin: center center;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.aircraft-svg {
+    width: 40px;
+    height: 40px;
+    display: block;
+    transform-origin: center center;
+    fill: var(--accent);
+}
+
+/* ==========================================================
+   Status Colors & Badges
+   ========================================================== */
+.status-ready {
+    color: var(--success) !important;
+    font-weight: 700 !important;
+}
+
+.status-playing {
+    color: var(--accent) !important;
+    font-weight: 700 !important;
+}
+
+.status-paused {
+    color: var(--warning) !important;
+    font-weight: 700 !important;
+}
+
+.status-error {
+    color: var(--danger) !important;
+    font-weight: 700 !important;
+}
+
+/* ==========================================================
+   Responsive Adaptations
+   ========================================================== */
+@media (max-width: 960px) {
+    .toolbar-main {
+        flex-wrap: wrap;
+    }
+    .toolbar-spacer {
+        display: none;
+    }
+    .infoRow {
+        gap: 8px;
+        overflow-x: auto;
+    }
+    .infoItem {
+        padding: 2px 6px;
+    }
+}
+
+@media (max-width: 640px) {
+    #toolbar {
+        padding: 6px 10px 8px;
+    }
+    .toolbar-divider {
+        display: none;
+    }
+    .btn-export {
+        font-size: 0;
+        width: 36px;
+        padding: 0;
+    }
+    .btn-export .btn-icon {
+        margin: 0;
+        font-size: 16px;
+    }
+    .speed-control .control-label {
+        display: none;
+    }
+}

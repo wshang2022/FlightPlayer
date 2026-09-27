@@ -1,0 +1,47 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+
+    <g fill="#0066cc" stroke="#003366" stroke-width="1.2" stroke-linejoin="round">
+
+        <!-- Fuselage -->
+        <path d="
+            M32 2
+            L36 18
+            L39 30
+            L39 50
+            L35 62
+            L29 62
+            L25 50
+            L25 30
+            L28 18
+            Z"></path>
+
+        <!-- Main wings -->
+        <polygon points="
+            8,28
+            25,32
+            25,38
+            8,36"></polygon>
+
+        <polygon points="
+            56,28
+            39,32
+            39,38
+            56,36"></polygon>
+
+        <!-- Tail wings -->
+        <polygon points="
+            18,50
+            25,48
+            25,54
+            18,56"></polygon>
+
+        <polygon points="
+            46,50
+            39,48
+            39,54
+            46,56"></polygon>
+
+    </g>
+
+</svg>
